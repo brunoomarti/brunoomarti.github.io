@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jane Nelsen</title>
+    <link rel="stylesheet" href="assets/css/page-style.css" />
+  </head>
+  <body>
+
+    <canvas id="gradientMap" class="background-body"></canvas>
+
+    <img src="assets/img/SAPION FORMA BRANCO.png" alt="" class="logo">
+
+    <section class="card-wrapper">
+      <div class="hitbox" id="hitbox">
+        <div class="card">
+
+          <img src="assets/img/light_leak.jpg" alt="" class="light-leak-asset">
+
+          <div class="content">
+
+            <p class="title">JANE NELSEN</p>
+            <p class="subtitle">ENCANTADORA DE VÍNCULOS</p>
+            <canvas id="separator"></canvas>
+
+            <p class="paragraph">Nos reinos encantados de Educaria, uma figura notável é Jane Nelsen, conhecida como a Encantadora de Vínculos. Ela é a guardiã dos antigos segredos que revelam como nutrir relacionamentos com respeito, empatia e amor.</p>
+
+            <p class="paragraph">Em um mundo onde a harmonia nas relações familiares é tão valiosa quanto qualquer tesouro, Jane Nelsen é uma presença radiante e benevolente que viaja pelos reinos, compartilhando seu conhecimento e ensinando aos pais e mentores como conjurar e manter laços familiares profundos com as jovens mentes que moldarão o futuro. 
+            </p>
+
+            <p class="subtitle">Habilidades:</p>
+            <canvas id="separator"></canvas>
+
+            <p class="paragraph"> <span style="font-weight: 400;">Toque da Cura</span> - Uma habilidade mágica que lhe permite curar feridas emocionais e conflitos dentro da família.</p>
+
+            <p class="paragraph"><span style="font-weight: 400;">Aura da Empatia</span> - Ela possui a habilidade de criar uma aura que permite sentir as emoções e preocupações de cada ser.</p>
+
+            <p class="paragraph"><span style="font-weight: 400;">Espelho da Verdade</span> - Ele reflete as emoções e pensamentos ocultos dos membros da família.</p>
+
+          </div>
+          <div class="light"></div>
+        </div>
+      </div>
+    </section>
+
+    <script src="assets/js/script.js"></script>
+    <script>
+      var config = {
+        imagePath: "assets/img/jane-nelsen.png",
+        gradientColors: ["#1b1e50", "#a260ff"],
+        blurAmount: "40px",
+        globalCompositeOperation1: "lighten",
+        globalCompositeOperation2: "lighten",
+      };
+
+      initializeCanvas(config);
+      window.addEventListener("resize", function () {
+        initializeCanvas(config);
+      });
+    </script>
+  </body>
+</html>

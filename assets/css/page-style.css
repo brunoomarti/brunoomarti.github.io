@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.background-body {
+    margin: 0;
+    overflow: hidden;
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    filter: brightness(40%) saturate(50%);
+}
+
+canvas {
+    display: block;
+}
+
+.logo {
+    position: absolute;
+    width: 20px;
+    margin: 20px;
+}
+
+.card-wrapper {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hitbox {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    isolation: isolate;
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    text-align: justify;
+    position: relative;
+    width: 380px;
+    height: 540px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 5px rgba(226, 147, 236, 0.4);
+    transform: scale(0.90);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url(assets/img/jane-nelsen.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: brightness(0.6) blur(40px);
+    z-index: -2;
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, #1d2058, #9e5ff7);
+    filter: brightness(0.8);
+    mix-blend-mode: lighten;
+    z-index: -2;
+}
+
+.light-leak-asset {
+    width: 300%;
+    transform: rotate(90deg);
+    top: -60px;
+    height: auto;
+    position: absolute;
+    mix-blend-mode: screen;
+    opacity: 0.7;
+    z-index: -1;
+}
+
+.light {
+    position: absolute;
+    inset: 0;
+    content: '';
+    transition: all 0.5s linear;
+    background: radial-gradient(circle at -50% 50%,
+            rgba(171, 194, 208, 0.5) 0%,
+            rgba(171, 194, 208, 0.4) 20%,
+            transparent,
+            transparent);
+    z-index: -1;
+    mix-blend-mode: overlay;
+}
+
+p {
+    font-family: 'Sora', 'Open Sans', sans-serif;
+    color: white;
+}
+
+.title {
+    width: 100%;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.subtitle {
+    width: 100%;
+    font-size: 14px;
+    margin: -4px 0 0 0;
+}
+
+.paragraph {
+    font-size: 12px;
+    padding: 0 0 15px 0;
+    font-weight: 200;
+}
+
+.content {
+    padding: 8%;
+}
+
+#separator {
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    opacity: 0.7;
+    margin: 10px 0 15px 0;
+}
+
+@media only screen and (max-width: 600px) {
+    .hitbox {
+        width: 60%;
+        height: auto;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .subtitle {
+        font-size: 12px;
+    }
+
+    .paragraph {
+        font-size: 12px;
+    }
+
+    .content {
+        padding: 8%;
+    }
+}
