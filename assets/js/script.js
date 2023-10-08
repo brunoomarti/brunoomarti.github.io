@@ -170,15 +170,19 @@ class Card3d {
             this.resetCardRotation();
         });
 
-        window.addEventListener('deviceorientation', (e) => {
-            this.mouse = {
-                x: (e.gamma + 90) * (window.innerWidth / 180),
-                y: (e.beta + 90) * (window.innerHeight / 180),
-            };
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-            this.updateCardRotation();
-            this.updateLightRotation();
-        });
+        if (isMobile) {
+            window.addEventListener('deviceorientation', (e) => {
+                this.mouse = {
+                    x: (e.gamma + 90) * (window.innerWidth / 180) * 2,
+                    y: (e.beta + 90) * (window.innerHeight / 180) * 2,
+                };
+
+                this.updateCardRotation();
+                this.updateLightRotation();
+            });
+        }
     }
 }
 
