@@ -175,8 +175,8 @@ class Card3d {
         if (isMobile) {
             window.addEventListener('deviceorientation', (e) => {
                 this.mouse = {
-                    x: (e.gamma + 90) * (window.innerWidth / 180) * 2,
-                    y: (e.beta + 90) * (window.innerHeight / 180) * 2,
+                    x: (e.gamma + 90) * (window.innerWidth / 180) * 1.5,
+                    y: (e.beta + 90) * (window.innerHeight / 180) * 1.5,
                 };
 
                 this.updateCardRotation();
