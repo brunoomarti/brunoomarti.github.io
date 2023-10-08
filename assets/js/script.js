@@ -107,55 +107,120 @@ class Card3d {
 
         return rotation;
     }
-    
 
-    updateCardRotation() {
-        const { x, y } = this.calculateCardRotation();
-        console.log(x, y);
-
-        this.card.animate(
-            [
-                {
-                    transform: `rotateY(${y}deg) rotateX(${x}deg) scale(0.95)`,
-                },
-            ], 
-            {
-                duration: 500,
-                easing: 'ease-out',
-                fill: 'forwards',
-                delay: 100,
-            }
-        );
+    cardClick() {
+        if (this.card.classList.contains('flipped')) {
+            this.cardTurn();
+            this.card.classList.remove('flipped');
+        } else {
+            this.cardTurn();
+            this.card.classList.add('flipped');
+        }
     }
 
-    resetCardRotation(){
-        this.card.animate(
+    cardTurn() {
+        this.card.animate (
         [
             {
-                transform: `rotateY(0deg) rotateX(0deg) scale(0.90)`,
+                transform: `rotateY(180deg) scale(0.95)`,
             },
-        ], 
+        ],
         {
-            duration: 600,
+            duration: 500,
             easing: 'ease-out',
             fill: 'forwards',
-            delay: 200,
-        })
+            delay: 100,
+        }
+       );
+    }    
+
+    updateCardRotation() {
+
+        const { x, y } = this.calculateCardRotation();
+
+        if (!this.card.classList.contains('flipped')) {
+            this.card.animate(
+                [
+                    {
+                        transform: `rotateY(${y}deg) rotateX(${x}deg) scale(0.95)`,
+                    },
+                ],
+                {
+                    duration: 500,
+                    easing: 'ease-out',
+                    fill: 'forwards',
+                    delay: 100,
+                }
+            );
+        } else {
+
+            const rotateYValue = `rotateY(${180 - (-y)}deg)`;
+            const transformValue = `${rotateYValue} rotateX(${-x}deg) scale(0.95)`;
+
+            this.card.animate(
+                [
+                    {
+                        transform: transformValue,
+                    },
+                ],
+                {
+                    duration: 500,
+                    easing: 'ease-out',
+                    fill: 'forwards',
+                    delay: 100,
+                }
+            );
+        }
+    }
+
+    resetCardRotation() {
+        if (!this.card.classList.contains('flipped')) {
+            this.card.animate(
+                [
+                    {
+                        transform: `rotateY(0deg) rotateX(0deg) scale(0.90)`,
+                    },
+                ],
+                {
+                    duration: 600,
+                    easing: 'ease-out',
+                    fill: 'forwards',
+                    delay: 200,
+                }
+            );
+        }
     }
 
     updateLightRotation(){
-        const x = this.ratio.x * 100 + 50;
-        const y = this.ratio.y * 100 + 50;
+        if (!this.card.classList.contains('flipped')) {
+            const x = this.ratio.x * 100 + 50;
+            const y = this.ratio.y * 100 + 50;
 
-        this.light.style.background = `
-        radial-gradient(circle at ${x}% ${y}%,
-            rgba(171, 194, 208, 0.5) 0%,
-            rgba(171, 194, 208, 0.4) 20%,
-            transparent,
-            transparent)`
+            this.light.style.background = `
+            radial-gradient(circle at ${x}% ${y}%,
+                rgba(171, 194, 208, 0.5) 0%,
+                rgba(171, 194, 208, 0.4) 20%,
+                transparent,
+                transparent)`
+        } else {
+            const x = this.ratio.x * (-100) + 50;
+            const y = this.ratio.y * 100 + 50;
+
+            this.light.style.background = `
+            radial-gradient(circle at ${x}% ${y}%,
+                rgba(171, 194, 208, 0.5) 0%,
+                rgba(171, 194, 208, 0.4) 20%,
+                transparent,
+                transparent)`
+        }
     }
 
     setupListeners(){
+
+        this.hitbox.addEventListener('click', () => {
+            this.cardClick();
+        });
+
         this.hitbox.addEventListener('mousemove', (e)=>{
             this.mouse = {
                 x : e.clientX,

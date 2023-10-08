@@ -17,7 +17,7 @@ html, body {
     position: fixed;
     height: 100vh;
     width: 100%;
-    filter: brightness(40%) saturate(50%);
+    filter: brightness(40%) saturate(60%);
 }
 
 canvas {
@@ -71,11 +71,10 @@ canvas {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url(assets/img/jane-nelsen.png);
+    background-image: url(../img/jane-nelsen.png);
     background-position: center;
     background-size: cover;
-    background-repeat: no-repeat;
-    filter: brightness(0.6) blur(40px);
+    filter: brightness(0.6) blur(60px);
     z-index: -2;
 }
 
@@ -93,7 +92,7 @@ canvas {
 }
 
 .light-leak-asset {
-    width: 300%;
+    width: 320%;
     transform: rotate(90deg);
     top: -60px;
     height: auto;
