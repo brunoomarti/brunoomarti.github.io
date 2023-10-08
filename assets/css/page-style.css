@@ -154,25 +154,17 @@ p {
     margin: 10px 0 15px 0;
 }
 
-@media only screen and (max-width: 600px) {
-    .hitbox {
-        width: 60%;
+@media only screen and (max-width: 768px) {
+    .card {
+        width: 90%; /* Adjust as needed for smaller screens */
         height: auto;
     }
 
-    .title {
-        font-size: 24px;
+    .card::before {
+        filter: brightness(0.6) blur(20px); /* Adjust as needed for smaller screens */
     }
-
-    .subtitle {
-        font-size: 12px;
-    }
-
-    .paragraph {
-        font-size: 12px;
-    }
-
-    .content {
-        padding: 8%;
+    
+    .card::after {
+        filter: brightness(0.8);
     }
 }
