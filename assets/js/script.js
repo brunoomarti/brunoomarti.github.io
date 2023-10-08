@@ -218,9 +218,9 @@ class Card3d {
 
     setupListeners(){
 
-        this.hitbox.addEventListener('click', () => {
-            this.cardClick();
-        });
+        // this.hitbox.addEventListener('click', () => {
+        //     this.cardClick();
+        // });
 
         this.hitbox.addEventListener('mousemove', (e)=>{
             this.mouse = {
