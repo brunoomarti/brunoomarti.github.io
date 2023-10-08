@@ -156,8 +156,7 @@ p {
 
 @media only screen and (max-width: 768px) {
     .card {
-        width: 90%; /* Adjust as needed for smaller screens */
-        height: auto;
+        margin: 10%;
     }
 
     .card::before {
