@@ -71,9 +71,10 @@ canvas {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url(../img/jane-nelsen.png);
+    background-image: var(--card-image);
     background-position: center;
     background-size: cover;
+    -webkit-filter: brightness(0.6) blur(30px);
     filter: brightness(0.6) blur(30px);
     z-index: -2;
 }
@@ -163,5 +164,10 @@ p {
     
     .card::after {
         filter: brightness(0.8);
+    }
+
+    .light-leak-asset {
+        width: 350%;
+        top: -30px;
     }
 }
