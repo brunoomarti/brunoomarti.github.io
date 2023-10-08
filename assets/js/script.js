@@ -39,6 +39,7 @@ function initializeCanvas(config) {
             var y = (canvas.height - targetHeight) / 2;
 
             ctx.globalCompositeOperation = config.globalCompositeOperation1;
+            ctx.webkitFilter = 'blur(' + config.blurAmount + ')';
             ctx.filter = 'blur(' + config.blurAmount + ')';
             ctx.drawImage(img, x, y, targetWidth, targetHeight);
 
@@ -110,11 +111,11 @@ class Card3d {
 
     cardClick() {
         if (this.card.classList.contains('flipped')) {
-            this.cardTurn();
             this.card.classList.remove('flipped');
+            resetCardRotation();
         } else {
-            this.cardTurn();
             this.card.classList.add('flipped');
+            this.cardTurn();
         }
     }
 
