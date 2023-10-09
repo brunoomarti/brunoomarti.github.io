@@ -110,140 +110,70 @@ class Card3d {
     }
 
     cardClick() {
-        if (this.card.classList.contains('flipped')) {
-            this.cardTurn();
-            this.card.classList.remove('flipped');
-        } else {
-            this.cardTurn();
-            this.card.classList.add('flipped');
-        }
+        this.cardTurn();
+        this.card.classList.toggle('flipped');
     }
 
     cardTurn() {
-        if (!this.card.classList.contains('flipped')) {
-            this.card.animate (
-                [
-                    {
-                        transform: `rotateY(180deg) scale(0.95)`,
-                    },
-                ],
-                {
-                    duration: 500,
-                    easing: 'ease-out',
-                    fill: 'forwards',
-                    delay: 100,
-                }
-            );
-        } else {
-            this.card.animate (
-                [
-                    {
-                        transform: `rotateY(0deg) scale(0.95)`,
-                    },
-                ],
-                {
-                    duration: 500,
-                    easing: 'ease-out',
-                    fill: 'forwards',
-                    delay: 100,
-                }
-            );
-        }
-    }    
+        const isFlipped = this.card.classList.contains('flipped');
+        const rotateYValue = isFlipped ? '0deg' : '180deg';
+        const transformValue = `rotateY(${rotateYValue}) scale(0.95)`;
+    
+        this.card.animate(
+            [{ transform: transformValue }],
+            { duration: 500, easing: 'ease-out', fill: 'forwards', delay: 100 }
+        );
+    }   
 
     updateCardRotation() {
-
         const { x, y } = this.calculateCardRotation();
-
-        if (!this.card.classList.contains('flipped')) {
-            this.card.animate(
-                [
-                    {
-                        transform: `rotateY(${y}deg) rotateX(${x}deg) scale(0.95)`,
-                    },
-                ],
-                {
-                    duration: 500,
-                    easing: 'ease-out',
-                    fill: 'forwards',
-                    delay: 100,
-                }
-            );
-        } else {
-
-            const rotateYValue = `rotateY(${180 - (-y)}deg)`;
-            const transformValue = `${rotateYValue} rotateX(${-x}deg) scale(0.95)`;
-
-            this.card.animate(
-                [
-                    {
-                        transform: transformValue,
-                    },
-                ],
-                {
-                    duration: 500,
-                    easing: 'ease-out',
-                    fill: 'forwards',
-                    delay: 100,
-                }
-            );
-        }
+        const flipped = this.card.classList.contains('flipped');
+        
+        const rotateYValue = flipped ? `rotateY(${180 - (-y)}deg)` : `rotateY(${y}deg)`;
+        const transformValue = `rotateX(${flipped ? x : x}deg) scale(0.95) ${rotateYValue}`;
+    
+        this.card.animate(
+            [{ transform: transformValue }],
+            { duration: 500, easing: 'ease-out', fill: 'forwards', delay: 100 }
+        );
     }
 
     resetCardRotation() {
-        if (!this.card.classList.contains('flipped')) {
-            this.card.animate(
-                [
-                    {
-                        transform: `rotateY(0deg) rotateX(0deg) scale(0.90)`,
-                    },
-                ],
-                {
-                    duration: 600,
-                    easing: 'ease-out',
-                    fill: 'forwards',
-                    delay: 200,
-                }
-            );
-        } else {
-            this.card.animate(
-                [
-                    {
-                        transform: `rotateY(180deg) rotateX(0deg) scale(0.90)`,
-                    },
-                ],
-                {
-                    duration: 600,
-                    easing: 'ease-out',
-                    fill: 'forwards',
-                    delay: 200,
-                }
-            );
-        }
+        const flipped = this.card.classList.contains('flipped');
+        const rotateYValue = flipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+        
+        this.card.animate(
+            [{ transform: `${rotateYValue} rotateX(0deg) scale(0.90)` }],
+            { duration: 600, easing: 'ease-out', fill: 'forwards', delay: 200 }
+        );
     }
 
-    updateLightRotation(){
-        if (!this.card.classList.contains('flipped')) {
-            const x = this.ratio.x * 100 + 50;
-            const y = this.ratio.y * 100 + 50;
+    updateLightRotation() {
+        const factor = this.card.classList.contains('flipped') ? -1 : 1;
+        const x = this.ratio.x * 100 * factor + 50;
+        const y = this.ratio.y * 100 + 50;
+    
+        this.light.style.background = `
+            radial-gradient(circle at ${x}% ${y}%, 
+                rgba(171, 194, 208, 0.5) 0%, 
+                rgba(171, 194, 208, 0.4) 20%, 
+                transparent, 
+                transparent)`;
+    }
 
-            this.light.style.background = `
-            radial-gradient(circle at ${x}% ${y}%,
-                rgba(171, 194, 208, 0.5) 0%,
-                rgba(171, 194, 208, 0.4) 20%,
-                transparent,
-                transparent)`
-        } else {
-            const x = this.ratio.x * (-100) + 50;
-            const y = this.ratio.y * 100 + 50;
+    startContinuousMonitoring() {
+        const checkPosition = () => {
+            const rect = this.card.getBoundingClientRect();
+            const positionY = rect.top + window.scrollY;
 
-            this.light.style.background = `
-            radial-gradient(circle at ${x}% ${y}%,
-                rgba(171, 194, 208, 0.5) 0%,
-                rgba(171, 194, 208, 0.4) 20%,
-                transparent,
-                transparent)`
-        }
+            console.log('Posição Y da carta:', positionY);
+
+            // Solicita o próximo quadro de animação
+            requestAnimationFrame(checkPosition);
+        };
+
+        // Inicia o monitoramento contínuo
+        checkPosition();
     }
 
     setupListeners(){
