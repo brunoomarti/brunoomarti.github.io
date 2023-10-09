@@ -111,28 +111,44 @@ class Card3d {
 
     cardClick() {
         if (this.card.classList.contains('flipped')) {
-            this.card.classList.remove('flipped');
-            resetCardRotation();
-        } else {
-            this.card.classList.add('flipped');
             this.cardTurn();
+            this.card.classList.remove('flipped');
+        } else {
+            this.cardTurn();
+            this.card.classList.add('flipped');
         }
     }
 
     cardTurn() {
-        this.card.animate (
-        [
-            {
-                transform: `rotateY(180deg) scale(0.95)`,
-            },
-        ],
-        {
-            duration: 500,
-            easing: 'ease-out',
-            fill: 'forwards',
-            delay: 100,
+        if (!this.card.classList.contains('flipped')) {
+            this.card.animate (
+                [
+                    {
+                        transform: `rotateY(180deg) scale(0.95)`,
+                    },
+                ],
+                {
+                    duration: 500,
+                    easing: 'ease-out',
+                    fill: 'forwards',
+                    delay: 100,
+                }
+            );
+        } else {
+            this.card.animate (
+                [
+                    {
+                        transform: `rotateY(0deg) scale(0.95)`,
+                    },
+                ],
+                {
+                    duration: 500,
+                    easing: 'ease-out',
+                    fill: 'forwards',
+                    delay: 100,
+                }
+            );
         }
-       );
     }    
 
     updateCardRotation() {
@@ -189,6 +205,20 @@ class Card3d {
                     delay: 200,
                 }
             );
+        } else {
+            this.card.animate(
+                [
+                    {
+                        transform: `rotateY(180deg) rotateX(0deg) scale(0.90)`,
+                    },
+                ],
+                {
+                    duration: 600,
+                    easing: 'ease-out',
+                    fill: 'forwards',
+                    delay: 200,
+                }
+            );
         }
     }
 
@@ -218,9 +248,9 @@ class Card3d {
 
     setupListeners(){
 
-        // this.hitbox.addEventListener('click', () => {
-        //     this.cardClick();
-        // });
+        this.hitbox.addEventListener('click', () => {
+            this.cardClick();
+        });
 
         this.hitbox.addEventListener('mousemove', (e)=>{
             this.mouse = {
