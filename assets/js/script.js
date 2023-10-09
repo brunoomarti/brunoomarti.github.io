@@ -118,12 +118,19 @@ class Card3d {
         const isFlipped = this.card.classList.contains('flipped');
         const rotateYValue = isFlipped ? '0deg' : '180deg';
         const transformValue = `rotateY(${rotateYValue}) scale(0.95)`;
-    
+
         this.card.animate(
             [{ transform: transformValue }],
-            { duration: 500, easing: 'ease-out', fill: 'forwards', delay: 100 }
+            { duration: 500, easing: 'ease-out', fill: 'forwards', delay: 250 }
         );
-    }   
+
+        setTimeout(() => {
+            const frontContent = this.hitbox.querySelector('.front-content');
+            const backContent = this.hitbox.querySelector('.back-content');
+            frontContent.style.display = isFlipped ? 'block' : 'none';
+            backContent.style.display = isFlipped ? 'none' : 'flex';
+        }, 400);
+    }
 
     updateCardRotation() {
         const { x, y } = this.calculateCardRotation();
@@ -159,21 +166,6 @@ class Card3d {
                 rgba(171, 194, 208, 0.4) 20%, 
                 transparent, 
                 transparent)`;
-    }
-
-    startContinuousMonitoring() {
-        const checkPosition = () => {
-            const rect = this.card.getBoundingClientRect();
-            const positionY = rect.top + window.scrollY;
-
-            console.log('Posição Y da carta:', positionY);
-
-            // Solicita o próximo quadro de animação
-            requestAnimationFrame(checkPosition);
-        };
-
-        // Inicia o monitoramento contínuo
-        checkPosition();
     }
 
     setupListeners(){
